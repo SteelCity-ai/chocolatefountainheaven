@@ -16,17 +16,36 @@
   var drawer = document.querySelector('.drawer');
   var close = document.querySelector('.drawer__close');
   if (toggle && drawer) {
-    toggle.addEventListener('click', function () {
-      drawer.classList.add('is-open');
-      document.body.style.overflow = 'hidden';
-    });
-    var shut = function () {
-      drawer.classList.remove('is-open');
-      document.body.style.overflow = '';
+    var setState = function (open) {
+      drawer.classList.toggle('is-open', open);
+      drawer.setAttribute('aria-hidden', open ? 'false' : 'true');
+      toggle.setAttribute('aria-expanded', open ? 'true' : 'false');
+      document.body.style.overflow = open ? 'hidden' : '';
     };
-    if (close) close.addEventListener('click', shut);
-    drawer.querySelectorAll('a').forEach(function (a) { a.addEventListener('click', shut); });
-    document.addEventListener('keydown', function (e) { if (e.key === 'Escape') shut(); });
+    toggle.addEventListener('click', function () {
+      var open = !drawer.classList.contains('is-open');
+      setState(open);
+      if (open && close) close.focus();
+    });
+    var shut = function (restore) {
+      if (!drawer.classList.contains('is-open')) return;
+      setState(false);
+      if (restore) toggle.focus();
+    };
+    if (close) close.addEventListener('click', function () { shut(true); });
+    drawer.querySelectorAll('a').forEach(function (a) {
+      a.addEventListener('click', function () { shut(false); });
+    });
+    document.addEventListener('keydown', function (e) {
+      if (e.key === 'Escape') shut(true);
+      if (e.key === 'Tab' && drawer.classList.contains('is-open')) {
+        var f = drawer.querySelectorAll('a, button');
+        if (!f.length) return;
+        var first = f[0], last = f[f.length - 1];
+        if (e.shiftKey && document.activeElement === first) { e.preventDefault(); last.focus(); }
+        else if (!e.shiftKey && document.activeElement === last) { e.preventDefault(); first.focus(); }
+      }
+    });
   }
 
   /* reveal on scroll */
@@ -48,7 +67,7 @@
   /* lightbox */
   var lb = document.querySelector('.lb');
   var lbImg = lb ? lb.querySelector('img') : null;
-  var figures = Array.prototype.slice.call(document.querySelectorAll('.masonry figure'));
+  var figures = Array.prototype.slice.call(document.querySelectorAll('.plates figure'));
   var current = 0;
   var openLb = function (i) {
     if (!lb || !lbImg) return;
@@ -57,11 +76,15 @@
     lbImg.src = img.getAttribute('data-full') || img.src;
     lbImg.alt = img.alt;
     lb.classList.add('is-open');
+    lb.setAttribute('aria-hidden', 'false');
+    lb.querySelector('.lb__close').focus();
     document.body.style.overflow = 'hidden';
   };
   var closeLb = function () {
     if (!lb) return;
     lb.classList.remove('is-open');
+    lb.setAttribute('aria-hidden', 'true');
+    if (figures[current]) figures[current].focus();
     document.body.style.overflow = '';
   };
   figures.forEach(function (f, i) {
@@ -79,6 +102,12 @@
     var n = lb.querySelector('.lb__next'); if (n) n.addEventListener('click', function (e) { e.stopPropagation(); openLb(current + 1); });
     document.addEventListener('keydown', function (e) {
       if (!lb.classList.contains('is-open')) return;
+      if (e.key === 'Tab') {
+        var buttons = lb.querySelectorAll('button');
+        var first = buttons[0], last = buttons[buttons.length - 1];
+        if (e.shiftKey && document.activeElement === first) { e.preventDefault(); last.focus(); }
+        else if (!e.shiftKey && document.activeElement === last) { e.preventDefault(); first.focus(); }
+      }
       if (e.key === 'Escape') closeLb();
       if (e.key === 'ArrowLeft') openLb(current - 1);
       if (e.key === 'ArrowRight') openLb(current + 1);

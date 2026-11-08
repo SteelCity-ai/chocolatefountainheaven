@@ -1,5 +1,7 @@
 #!/usr/bin/env python3
 """Generate the inner pages of the Chocolate Fountain Heaven site from shared chrome."""
+raise SystemExit("Historical bootstrap only: edit site/ directly; regenerating would overwrite the reviewed design.")
+
 import pathlib
 
 SITE = pathlib.Path(__file__).parent / "site"
