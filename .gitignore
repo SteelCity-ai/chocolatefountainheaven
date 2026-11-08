@@ -1,0 +1,11 @@
+node_modules/
+.venv/
+__pycache__/
+*.log
+.env
+.env.*
+.DS_Store
+/*.html
+/*.jpg
+/sq/
+/gallery_urls.txt
