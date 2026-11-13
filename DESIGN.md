@@ -52,3 +52,60 @@ Text pairs were checked against WCAG 2.1 AA:
 
 ### Review boundary
 This is still a client-review draft. Pricing, claims and publication require client approval. The inquiry form continues to open an email draft; no backend was added. The new layer is a visual refresh, not a structural rebuild. The original production site is not replaced by this work.
+
+## Design 2.1 — “Brighter & Bolder” (STE-355, accepted direction)
+
+Mike reviewed 2.0 and chose **brighter and bolder**. The 2.1 layer repaints the palette only: brighter berry, hotter strawberry, brighter champagne, fresher pistachio and bolder colour blocks. Layout, type scale, navigation, photography, copy and interaction are unchanged, so 2.1 is a colour layer, not a rebuild.
+
+### Decision record
+- 2026-11-09 — owner answer on interaction `e50ef537`: colour direction **brighter**.
+- 2026-11-12 — owner note: “keep moving things ahead, remove any gates.” Design acceptance and the internal review holds are closed on that instruction; the direction below is the accepted design.
+
+### Palette (2.1 layer)
+
+| Token | Value | Use |
+|---|---|---|
+| `--ink` | `#1b0b10` | body and display text on light fields |
+| `--paper` | `#fffdf8` | default page field |
+| `--cream` | `#fff8ea` | alternating sections, text on dark fields |
+| `--berry` / `--berry-deep` | `#d81b60` / `#a30d4f` | buttons, prices, rules, chapter numerals, bands |
+| `--berry-bright` | `#e01b63` | hero strip gradient end |
+| `--strawberry` | `#ff5c7a` | ribbon, hover accents, decorative only |
+| `--champagne` | `#ffd166` | accents, headings on dark fields, hover on berry |
+| `--pistachio` / `--pistachio-deep` | `#7ed957` / `#4f8f3f` | ribbon end, soft section fields |
+| `--rose`, `--berry-soft`, `--pistachio-soft`, `--champagne-soft` | `#ffd9e4`, `#ffe3ec`, `#e2f5da`, `#fff0c2` | alternating section fields |
+
+### Files and rollback
+- `site/css/style-2.1.css` (7,920 bytes) loads after `style.css` and `style-2.0.css` on all seven pages: `index.html`, `fountains.html`, `ranch.html`, `gallery.html`, `weddings.html`, `faq.html`, `contact.html`.
+- Rollback: remove the `style-2.1.css` link from the seven pages. 2.0 returns with no other change.
+- `site/js/main.js` is unchanged. Skip link, focus styles, mobile drawer, gallery viewer, form behaviour and reduced-motion handling are inherited.
+
+### Accessibility (WCAG 2.1 AA, computed)
+
+Body and small text are at or above 4.5:1; large display text is at or above 3:1. Worst cases after five colour corrections made during QA:
+
+| Pair | Ratio |
+|---|---|
+| Paper on `--berry-bright` (hero strip, corrected) | 4.58:1 |
+| Cream `.86` on brightest footer gradient end | 5.01:1 |
+| Champagne hover on `--berry-deep` footer | 4.67:1 |
+| Ink `.62` gallery caption on `--berry-soft` | 5.04:1 |
+| Berry `#d81b60` on paper | 4.87:1 |
+| Berry-deep `#a30d4f` on paper | 7.57:1 |
+| Cream `#fff8ea` on berry | 4.68:1 |
+| Cream on berry-deep | 7.28:1 |
+| Champagne on ink | 13.22:1 |
+| Berry-deep on champagne | 5.34:1 |
+| Ink on paper | 18.75:1 |
+
+Strawberry `#ff5c7a` is decorative and hover-only. It is not used for small text on light fields and cream on strawberry is deliberately avoided.
+
+### Verification record
+- Public review build `https://cf.steelcity-ai.com/design-2-1/`: all seven pages and `style-2.1.css` were byte-identical (SHA-256) to commit `541f79d05b0d442d807eb7deba6119e37191d58e` when checked on 2026-11-13.
+- Browser checks: desktop 1440×1000 and mobile 390×844 show no horizontal overflow, no broken images and no console errors on home, gallery, contact and weddings.
+- No motion was added; reduced-motion, focus visibility and keyboard behaviour are unchanged from 2.0.
+
+### Delivery boundary
+- Pricing and factual claims remain the client's words; they were not edited by this design work and must stay as the business states them.
+- The inquiry form still opens an email draft in the visitor's mail app. No backend, analytics or tracking was added.
+- Publishing to the customer's live domain is a deployment step, not a further design decision. The source is complete on branch `codex/STE-355` and the review build above shows exactly that source.
