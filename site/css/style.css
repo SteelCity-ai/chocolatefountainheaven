@@ -190,6 +190,10 @@ p  { margin: 0 0 1.15em; }
 }
 .hero__media { position: absolute; inset: 0; }
 .hero__media img { width: 100%; height: 100%; object-fit: cover; object-position: 50% 42%; }
+/* home hero: fading photo rotation (client request, STE-553) */
+.hero__slides img { position: absolute; inset: 0; opacity: 0; transition: opacity .9s var(--ease); }
+.hero__slides img.is-active { opacity: 1; }
+@media (prefers-reduced-motion: reduce) { .hero__slides img { transition: none; } }
 .hero__media::after {
   content: ""; position: absolute; inset: 0;
   background:

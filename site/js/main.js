@@ -48,6 +48,35 @@
     });
   }
 
+  /* home hero photo rotation — client asked for a slightly faster fade (STE-553) */
+  var slidesBox = document.querySelector('.hero__slides');
+  if (slidesBox) {
+    var slides = Array.prototype.slice.call(slidesBox.querySelectorAll('.hero__slide'));
+    var reduce = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    if (slides.length > 1 && !reduce) {
+      var interval = parseInt(slidesBox.getAttribute('data-slide-interval'), 10) || 4000;
+      var idx = 0;
+      var timer = null;
+      var advance = function () {
+        slides[idx].classList.remove('is-active');
+        idx = (idx + 1) % slides.length;
+        slides[idx].classList.add('is-active');
+      };
+      var play = function () {
+        if (timer) return;
+        timer = window.setInterval(advance, interval);
+      };
+      var stop = function () {
+        window.clearInterval(timer);
+        timer = null;
+      };
+      document.addEventListener('visibilitychange', function () {
+        if (document.hidden) stop(); else play();
+      });
+      play();
+    }
+  }
+
   /* reveal on scroll */
   var revealEls = document.querySelectorAll('[data-reveal]');
   if ('IntersectionObserver' in window) {
