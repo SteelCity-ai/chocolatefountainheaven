@@ -134,4 +134,16 @@
       if (note) note.textContent = 'Opening your email app… or write to info@chocolatefountainheaven.com';
     });
   }
+
+  /* hero slideshow: fade through the hero photos
+     reduced-motion keeps the rotation but drops the fade (CSS handles that) */
+  var slides = document.querySelectorAll('[data-hero-slideshow] .hero__slide');
+  if (slides.length > 1) {
+    var idx = 0;
+    setInterval(function () {
+      slides[idx].classList.remove('is-active');
+      idx = (idx + 1) % slides.length;
+      slides[idx].classList.add('is-active');
+    }, 6000);
+  }
 })();
