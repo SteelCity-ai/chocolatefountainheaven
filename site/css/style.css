@@ -267,6 +267,7 @@ p  { margin: 0 0 1.15em; }
 .feature--flip .feature__media { order: 2; }
 .feature__media { position: relative; }
 .feature__media img { width: 100%; height: clamp(340px, 52vw, 620px); object-fit: cover; }
+.feature__media--portrait img { height: auto; aspect-ratio: 4 / 5; object-fit: cover; }
 .feature__media::before {
   content: ""; position: absolute; inset: -14px -14px auto auto; width: 120px; height: 120px;
   border-top: 1px solid var(--brass); border-right: 1px solid var(--brass); z-index: 2;
