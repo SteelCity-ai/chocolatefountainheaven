@@ -48,6 +48,57 @@
     });
   }
 
+  /* home hero photo rotation — client asked for a slightly faster fade (STE-553) */
+  var slidesBox = document.querySelector('.hero__slides');
+  if (slidesBox) {
+    var slides = Array.prototype.slice.call(slidesBox.querySelectorAll('.hero__slide'));
+    var reduce = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    if (slides.length > 1 && !reduce) {
+      var interval = parseInt(slidesBox.getAttribute('data-slide-interval'), 10) || 4000;
+      /* the two smallest client photos are hidden on wide screens (STE-628);
+         keep the visible frame filled when the viewport crosses that breakpoint */
+      var wideHero = window.matchMedia('(min-width: 1080px)');
+      var visibleSlides = function () {
+        return slides.filter(function (s) {
+          return !(wideHero.matches && s.classList.contains('hero__slide--small'));
+        });
+      };
+      var keepFrameFilled = function () {
+        var list = visibleSlides();
+        if (!list.length) return;
+        var active = slidesBox.querySelector('.hero__slide.is-active');
+        if (list.indexOf(active) === -1) {
+          slides.forEach(function (s) { s.classList.remove('is-active'); });
+          list[0].classList.add('is-active');
+        }
+      };
+      if (wideHero.addEventListener) wideHero.addEventListener('change', keepFrameFilled);
+      else if (wideHero.addListener) wideHero.addListener(keepFrameFilled);
+      var idx = 0;
+      var timer = null;
+      var advance = function () {
+        var list = visibleSlides();
+        if (!list.length) return;
+        var cur = list.indexOf(slidesBox.querySelector('.hero__slide.is-active'));
+        var next = list[(cur + 1) % list.length];
+        slides.forEach(function (s) { s.classList.remove('is-active'); });
+        next.classList.add('is-active');
+      };
+      var play = function () {
+        if (timer) return;
+        timer = window.setInterval(advance, interval);
+      };
+      var stop = function () {
+        window.clearInterval(timer);
+        timer = null;
+      };
+      document.addEventListener('visibilitychange', function () {
+        if (document.hidden) stop(); else play();
+      });
+      play();
+    }
+  }
+
   /* reveal on scroll */
   var revealEls = document.querySelectorAll('[data-reveal]');
   if ('IntersectionObserver' in window) {
@@ -126,7 +177,12 @@
       e.preventDefault();
       var d = new FormData(form);
       var body = [];
-      d.forEach(function (v, k) { if (v) body.push(k + ': ' + v); });
+      form.querySelectorAll('input[name], select[name], textarea[name]').forEach(function (el) {
+        if (!el.value) return;
+        var label = el.id && form.querySelector('label[for="' + el.id + '"]');
+        var key = label ? label.textContent.trim() : el.name;
+        body.push(key + ': ' + el.value);
+      });
       var subject = 'Event inquiry — ' + (d.get('name') || 'website');
       window.location.href = 'mailto:info@chocolatefountainheaven.com?subject=' +
         encodeURIComponent(subject) + '&body=' + encodeURIComponent(body.join('\n'));
