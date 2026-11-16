@@ -55,12 +55,34 @@
     var reduce = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
     if (slides.length > 1 && !reduce) {
       var interval = parseInt(slidesBox.getAttribute('data-slide-interval'), 10) || 4000;
+      /* the two smallest client photos are hidden on wide screens (STE-628);
+         keep the visible frame filled when the viewport crosses that breakpoint */
+      var wideHero = window.matchMedia('(min-width: 1080px)');
+      var visibleSlides = function () {
+        return slides.filter(function (s) {
+          return !(wideHero.matches && s.classList.contains('hero__slide--small'));
+        });
+      };
+      var keepFrameFilled = function () {
+        var list = visibleSlides();
+        if (!list.length) return;
+        var active = slidesBox.querySelector('.hero__slide.is-active');
+        if (list.indexOf(active) === -1) {
+          slides.forEach(function (s) { s.classList.remove('is-active'); });
+          list[0].classList.add('is-active');
+        }
+      };
+      if (wideHero.addEventListener) wideHero.addEventListener('change', keepFrameFilled);
+      else if (wideHero.addListener) wideHero.addListener(keepFrameFilled);
       var idx = 0;
       var timer = null;
       var advance = function () {
-        slides[idx].classList.remove('is-active');
-        idx = (idx + 1) % slides.length;
-        slides[idx].classList.add('is-active');
+        var list = visibleSlides();
+        if (!list.length) return;
+        var cur = list.indexOf(slidesBox.querySelector('.hero__slide.is-active'));
+        var next = list[(cur + 1) % list.length];
+        slides.forEach(function (s) { s.classList.remove('is-active'); });
+        next.classList.add('is-active');
       };
       var play = function () {
         if (timer) return;

@@ -194,6 +194,11 @@ p  { margin: 0 0 1.15em; }
 .hero__slides img { position: absolute; inset: 0; opacity: 0; transition: opacity .9s var(--ease); }
 .hero__slides img.is-active { opacity: 1; }
 @media (prefers-reduced-motion: reduce) { .hero__slides img { transition: none; } }
+/* Two client photos are only 946-955 px wide. Stretched across a 1920 px
+   screen they were enlarged about 2x and read as pixelated (STE-628). They
+   stay in the rotation where they are sharp (phones, tablets) and sit out the
+   wide-screen rotation until Gerra sends larger files. */
+@media (min-width: 1080px) { .hero__slide--small { display: none; } }
 .hero__media::after {
   content: ""; position: absolute; inset: 0;
   background:
