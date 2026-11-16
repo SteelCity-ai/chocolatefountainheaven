@@ -126,7 +126,12 @@
       e.preventDefault();
       var d = new FormData(form);
       var body = [];
-      d.forEach(function (v, k) { if (v) body.push(k + ': ' + v); });
+      form.querySelectorAll('input[name], select[name], textarea[name]').forEach(function (el) {
+        if (!el.value) return;
+        var label = el.id && form.querySelector('label[for="' + el.id + '"]');
+        var key = label ? label.textContent.trim() : el.name;
+        body.push(key + ': ' + el.value);
+      });
       var subject = 'Event inquiry — ' + (d.get('name') || 'website');
       window.location.href = 'mailto:info@chocolatefountainheaven.com?subject=' +
         encodeURIComponent(subject) + '&body=' + encodeURIComponent(body.join('\n'));
