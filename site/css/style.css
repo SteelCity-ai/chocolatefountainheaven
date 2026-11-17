@@ -183,52 +183,94 @@ p  { margin: 0 0 1.15em; }
 }
 .drawer__meta { margin-top: 2rem; font-family: var(--serif); font-size: 1.1rem; color: var(--brass-lt); }
 
-/* ---------- hero ---------- */
+/* ---------- hero ----------
+   Typography-led on the cream paper. The photo rotation is a contained
+   panel with a fixed 4:5 frame, never a stretched full-bleed background. */
 .hero {
-  position: relative; min-height: 100svh; display: flex; align-items: flex-end;
-  color: var(--cream); overflow: hidden; background: var(--ink);
-}
-.hero__media { position: absolute; inset: 0; }
-.hero__media img { width: 100%; height: 100%; object-fit: cover; object-position: 50% 42%; }
-/* home hero: fading photo rotation (client request, STE-553) */
-.hero__slides img { position: absolute; inset: 0; opacity: 0; transition: opacity .9s var(--ease); }
-.hero__slides img.is-active { opacity: 1; }
-@media (prefers-reduced-motion: reduce) { .hero__slides img { transition: none; } }
-/* Two client photos are only 946-955 px wide. Stretched across a 1920 px
-   screen they were enlarged about 2x and read as pixelated (STE-628). They
-   stay in the rotation where they are sharp (phones, tablets) and sit out the
-   wide-screen rotation until Gerra sends larger files. */
-@media (min-width: 1080px) { .hero__slide--small { display: none; } }
-.hero__media::after {
-  content: ""; position: absolute; inset: 0;
-  background:
-    linear-gradient(100deg, rgba(15,8,5,.94) 0%, rgba(15,8,5,.82) 38%, rgba(15,8,5,.42) 66%, rgba(15,8,5,.55) 100%),
-    radial-gradient(120% 90% at 80% 10%, rgba(166,124,66,.16), transparent 60%);
+  position: relative;
+  background: var(--paper);
+  color: var(--ink);
+  padding: clamp(7rem, 13vw, 9.5rem) 0 clamp(3rem, 6vw, 5rem);
+  overflow: hidden;
 }
 .hero__inner {
   position: relative; width: 100%; max-width: var(--wrap); margin-inline: auto;
-  padding: 0 var(--pad) clamp(2rem, 5vw, 4rem);
-  display: grid; grid-template-columns: minmax(0, 1fr) 220px; gap: 2rem; align-items: end;
+  padding: 0 var(--pad);
+  display: grid; grid-template-columns: minmax(0, 1fr) 460px;
+  gap: clamp(2rem, 5vw, 5rem); align-items: center;
 }
-.hero__copy { max-width: 42ch; padding-bottom: .5rem; }
-.hero h1 { margin: .9rem 0 1.2rem; }
-.hero h1 em { font-style: italic; color: var(--brass-lt); }
-.hero p { color: rgba(244,236,221,.82); max-width: 40ch; }
-.hero__actions { display: flex; flex-wrap: wrap; gap: .9rem 1.4rem; align-items: center; margin-top: 2rem; }
+.hero__copy { max-width: 46ch; }
+.hero h1 {
+  margin: 1.1rem 0 1.3rem;
+  font-size: clamp(2.5rem, 4.8vw, 4.4rem);
+  line-height: .98; color: var(--ink);
+}
+.hero h1 em { font-style: italic; color: var(--brass); }
+.hero__lede {
+  margin: 0; max-width: 42ch;
+  font-family: var(--serif); font-size: clamp(1.18rem, 1.4vw, 1.38rem);
+  line-height: 1.5; font-weight: 300; color: rgba(21, 13, 9, .78);
+}
+.hero__actions {
+  display: flex; flex-wrap: wrap; gap: .9rem 1.4rem; align-items: center;
+  margin-top: clamp(1.7rem, 3vw, 2.3rem);
+}
+.hero__note {
+  margin: 1.7rem 0 0;
+  font-size: .68rem; letter-spacing: .18em; text-transform: uppercase;
+  color: rgba(21, 13, 9, .55);
+}
 
-.hero__rail { border-left: 1px solid var(--line-cream); padding-left: 1.4rem; text-align: left; }
-.hero__rail .mono { font-size: .6rem; letter-spacing: .3em; text-transform: uppercase; color: var(--brass-lt); }
-.hero__rail p { font-family: var(--serif); font-size: .98rem; color: rgba(244,236,221,.6); margin-top: .7rem; }
+/* contained slideshow panel */
+.hero__panel { width: 100%; max-width: 460px; justify-self: end; }
+.hero__frame {
+  position: relative; aspect-ratio: 4 / 5; overflow: hidden;
+  background: var(--ink-soft); border: 1px solid var(--line);
+  box-shadow: 0 24px 50px -36px rgba(21, 13, 9, .55);
+}
+.hero__slides { position: absolute; inset: 0; }
+.hero__slides img {
+  position: absolute; inset: 0; width: 100%; height: 100%;
+  object-fit: cover; object-position: 50% 42%;
+  opacity: 0; transition: opacity .8s var(--ease);
+}
+.hero__slides img.is-active { opacity: 1; }
+@media (prefers-reduced-motion: reduce) { .hero__slides img { transition: none; } }
+
+.hero__controls {
+  display: flex; align-items: center; gap: .5rem; margin-top: .9rem;
+}
+.hero__ctrl {
+  width: 2.35rem; height: 2.35rem; display: inline-flex;
+  align-items: center; justify-content: center;
+  background: transparent; border: 1px solid var(--line); color: var(--ink);
+  cursor: pointer; transition: background .3s var(--ease), color .3s var(--ease), border-color .3s;
+}
+.hero__ctrl:hover { background: var(--ink); border-color: var(--ink); color: var(--paper); }
+.hero__ctrl:focus-visible { outline: 2px solid var(--brass); outline-offset: 2px; }
+.hero__count {
+  margin-left: auto; font-size: .66rem; letter-spacing: .2em;
+  color: rgba(21, 13, 9, .55); font-variant-numeric: tabular-nums;
+}
+.hero__toggle {
+  background: transparent; border: 0; padding: .5rem .2rem .5rem .9rem;
+  font-family: var(--sans); font-size: .66rem; letter-spacing: .2em;
+  text-transform: uppercase; color: rgba(21, 13, 9, .7); cursor: pointer;
+  border-bottom: 1px solid var(--line);
+}
+.hero__toggle:hover { color: var(--ink); border-color: var(--ink); }
+.hero__toggle:focus-visible { outline: 2px solid var(--brass); outline-offset: 2px; }
+.hero__toggle[hidden] { display: none; }
 
 .hero__strip {
-  position: relative; border-top: 1px solid var(--line-cream);
-  background: rgba(15,8,5,.55); backdrop-filter: blur(6px);
+  position: relative; border-top: 1px solid var(--line);
+  background: var(--paper);
 }
 .hero__strip ul {
   max-width: var(--wrap); margin-inline: auto; padding: .95rem var(--pad);
   list-style: none; display: flex; flex-wrap: wrap; gap: .6rem 2.4rem; margin-block: 0;
   font-size: .62rem; letter-spacing: .22em; text-transform: uppercase;
-  color: rgba(244,236,221,.55);
+  color: rgba(21, 13, 9, .55);
 }
 .hero__strip li { display: flex; align-items: center; gap: .7rem; }
 .hero__strip li::before { content: ""; width: 4px; height: 4px; border-radius: 50%; background: var(--brass); }
@@ -457,7 +499,7 @@ p  { margin: 0 0 1.15em; }
   .nav__links { display: none; }
   .nav__toggle { display: inline-flex; }
   .hero__inner { grid-template-columns: 1fr; }
-  .hero__rail { display: none; }
+  .hero__panel { justify-self: start; margin-top: .5rem; }
   .steps { grid-template-columns: repeat(2, 1fr); }
   .steps > div:nth-child(2) { border-right: 0; }
   .steps > div { border-bottom: 1px solid var(--line-cream); }
@@ -487,8 +529,8 @@ p  { margin: 0 0 1.15em; }
 
 /* ---------- legibility pass (QA 2026-11) ----------
    Header sat cream-on-cream on every inner page because .nav defaults to
-   var(--cream); only the home hero is dark enough. Default to ink and opt
-   into the over-hero treatment per page. */
+   var(--cream). Default to ink and opt into the over-hero treatment per page.
+   The home hero is now cream too, so it uses the default ink header. */
 .nav { color: var(--ink); }
 .nav.nav--over { color: var(--cream); }
 .nav.nav--over.is-stuck { color: var(--ink); }
@@ -498,7 +540,6 @@ p  { margin: 0 0 1.15em; }
 .wordmark span { font-size: .68rem; letter-spacing: .22em; opacity: .78; }
 .nav__links a { font-size: .72rem; }
 .nav__cta { font-size: .68rem !important; }
-.hero__rail .mono,
 .hero__strip ul,
 .label, .eyebrow,
 .crumbs,
@@ -507,7 +548,6 @@ p  { margin: 0 0 1.15em; }
 .dippers li span:last-child,
 .detail__label { font-size: .7rem !important; }
 .foot__legal { font-size: .68rem; color: rgba(244, 236, 221, .62); }
-.hero__rail p { color: rgba(244, 236, 221, .72); }
 .section--dark .steps p { color: rgba(244, 236, 221, .74); }
 
 /* Skip link: inline left:-9999px never came back on focus. */

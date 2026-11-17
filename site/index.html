@@ -15,7 +15,7 @@
 
 <a class="skip" href="#main">Skip to content</a>
 
-<header class="nav nav--over" id="nav">
+<header class="nav" id="nav">
   <a class="wordmark" href="index.html" aria-label="Chocolate Fountain Heaven, home">
     <b>Chocolate Fountain Heaven</b>
     <span>Cranberry Township &middot; Pittsburgh</span>
@@ -48,27 +48,37 @@
 
   <!-- ============ HERO ============ -->
   <section class="hero">
-    <div class="hero__media hero__slides" data-slide-interval="4000">
-      <img class="hero__slide is-active" src="img/home-2.jpg" srcset="img/home-2-800w.jpg 800w, img/home-2-1200w.jpg 1200w, img/home-2.jpg 1920w" sizes="100vw" width="1920" height="927" alt="A decorated dessert table with a chocolate fountain" fetchpriority="high" decoding="async">
-      <img class="hero__slide hero__slide--small" src="img/home-1.jpg" srcset="img/home-1-780w.jpg 780w, img/home-1.jpg 946w" sizes="100vw" width="946" height="2046" alt="A chocolate fountain set up at an event" loading="lazy" decoding="async">
-      <img class="hero__slide hero__slide--small" src="img/home-3.jpg" srcset="img/home-3-780w.jpg 780w, img/home-3.jpg 955w" sizes="100vw" width="955" height="2048" alt="Guests dipping treats at a chocolate fountain" loading="lazy" decoding="async">
-      <img class="hero__slide" src="img/home-4.jpg" srcset="img/home-4-800w.jpg 800w, img/home-4-1200w.jpg 1200w, img/home-4.jpg 1920w" sizes="100vw" width="1920" height="2560" alt="A close view of a chocolate fountain display" loading="lazy" decoding="async">
-      <img class="hero__slide" src="img/home-5.jpg" srcset="img/home-5-800w.jpg 800w, img/home-5-1200w.jpg 1200w, img/home-5.jpg 1920w" sizes="100vw" width="1920" height="2560" alt="A dessert buffet with a chocolate fountain" loading="lazy" decoding="async">
-    </div>
     <div class="hero__inner">
       <div class="hero__copy">
-        <span class="eyebrow eyebrow--line">Pittsburgh &middot; Cranberry</span>
-        <h1>The chocolate fountain, <em>done beautifully.</em></h1>
-        <p>Sephra chocolate, fresh-cut dippers and an attendant who never leaves the table. Receptions, galas and quiet Tuesday-night celebrations across Western Pennsylvania.</p>
+        <span class="eyebrow eyebrow--line">Pittsburgh &middot; Cranberry Township</span>
+        <h1>Chocolate fountains, <em>done beautifully.</em></h1>
+        <p class="hero__lede">Sephra milk and dark chocolate, fresh-cut dippers, and an attendant at your table from the first skewer to the last.</p>
         <div class="hero__actions">
           <a class="btn btn--solid" href="contact.html">Reserve a date</a>
-          <a class="link-u" href="fountains.html" style="color:var(--cream);border-color:var(--brass-lt)">See the fountains</a>
+          <a class="link-u" href="fountains.html">Explore the fountains</a>
+        </div>
+        <p class="hero__note">Family owned in Cranberry Township &middot; 724-339-9658</p>
+      </div>
+      <div class="hero__panel">
+        <div class="hero__frame">
+          <div class="hero__slides" data-slide-interval="5000">
+            <img class="hero__slide is-active" src="img/home-1.jpg" srcset="img/home-1-780w.jpg 780w, img/home-1.jpg 946w" sizes="460px" width="946" height="2046" alt="A chocolate fountain set up at an event" fetchpriority="high" decoding="async">
+            <img class="hero__slide" src="img/home-3.jpg" srcset="img/home-3-780w.jpg 780w, img/home-3.jpg 955w" sizes="460px" width="955" height="2048" alt="Guests dipping treats at a chocolate fountain" loading="lazy" decoding="async">
+            <img class="hero__slide" src="img/home-4.jpg" srcset="img/home-4-800w.jpg 800w, img/home-4-1200w.jpg 1200w, img/home-4.jpg 1920w" sizes="460px" width="1920" height="2560" alt="A close view of a chocolate fountain display" loading="lazy" decoding="async">
+            <img class="hero__slide" src="img/home-5.jpg" srcset="img/home-5-800w.jpg 800w, img/home-5-1200w.jpg 1200w, img/home-5.jpg 1920w" sizes="460px" width="1920" height="2560" alt="A dessert buffet with a chocolate fountain" loading="lazy" decoding="async">
+          </div>
+        </div>
+        <div class="hero__controls">
+          <button class="hero__ctrl" type="button" data-slide-prev aria-label="Previous photo">
+            <svg viewBox="0 0 24 24" width="14" height="14" aria-hidden="true" focusable="false"><path d="M15 5 8 12l7 7" fill="none" stroke="currentColor" stroke-width="1.5"/></svg>
+          </button>
+          <button class="hero__ctrl" type="button" data-slide-next aria-label="Next photo">
+            <svg viewBox="0 0 24 24" width="14" height="14" aria-hidden="true" focusable="false"><path d="m9 5 7 7-7 7" fill="none" stroke="currentColor" stroke-width="1.5"/></svg>
+          </button>
+          <span class="hero__count" data-slide-count aria-hidden="true">01 / 04</span>
+          <button class="hero__toggle" type="button" data-slide-toggle aria-label="Pause slideshow" aria-pressed="false">Pause</button>
         </div>
       </div>
-      <aside class="hero__rail">
-        <div class="mono">Chapter 01 &mdash; Welcome</div>
-        <p>Family owned. Attended service. Chocolate that keeps people at the table.</p>
-      </aside>
     </div>
   </section>
 
