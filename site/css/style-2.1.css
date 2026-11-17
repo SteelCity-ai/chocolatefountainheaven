@@ -1,0 +1,213 @@
+/* ==========================================================================
+   Chocolate Fountain Heaven — Design 2.1 “Brighter & Bolder”
+   Load after style.css and style-2.0.css. Mike asked for the 2.0 direction
+   to pop: brighter berry, hotter strawberry, brighter champagne and a fresher
+   pistachio, with bolder colour blocks. The editorial structure, type, imagery,
+   navigation and interaction layer stay exactly as they were.
+   ========================================================================== */
+
+:root {
+  --ink:          #1b0b10;
+  --ink-soft:     #2b1118;
+  --cocoa:        #6b2a1c;
+  --cream:        #fff8ea;
+  --paper:        #fffdf8;
+
+  --brass:        #d81b60;
+  --brass-lt:     #ffd166;
+  --wine:         #a30d4f;
+
+  --berry:        #d81b60;
+  --berry-deep:   #a30d4f;
+  --berry-bright: #e01b63;
+  --strawberry:   #ff5c7a;
+  --champagne:    #ffd166;
+  --pistachio:    #7ed957;
+  --pistachio-deep:#4f8f3f;
+  --rose:         #ffd9e4;
+  --berry-soft:   #ffe3ec;
+  --pistachio-soft:#e2f5da;
+  --champagne-soft:#fff0c2;
+
+  --line:         rgba(27, 11, 16, .18);
+  --line-lt:      rgba(27, 11, 16, .09);
+  --line-cream:   rgba(255, 248, 234, .26);
+}
+
+::selection { background: var(--berry); color: var(--paper); }
+
+/* A brighter five-colour ribbon across the top of every page. */
+body::before {
+  background: linear-gradient(90deg,
+    var(--berry-deep) 0 18%,
+    var(--berry) 18% 38%,
+    var(--strawberry) 38% 56%,
+    var(--champagne) 56% 78%,
+    var(--pistachio) 78% 100%);
+}
+
+/* ---------- navigation ---------- */
+.nav.is-stuck { background: rgba(255, 253, 248, .95); }
+.nav__links a::after { background: var(--berry); }
+.nav__cta {
+  border-color: var(--berry);
+  background: var(--berry);
+  color: var(--paper);
+}
+.nav__cta:hover,
+.nav.is-stuck .nav__cta:hover {
+  background: var(--berry-deep);
+  border-color: var(--berry-deep);
+  color: var(--paper);
+}
+.nav.nav--over .nav__cta {
+  border-color: var(--champagne);
+  background: var(--champagne);
+  color: var(--ink);
+}
+.nav.nav--over .nav__cta:hover {
+  background: var(--strawberry);
+  border-color: var(--strawberry);
+  color: var(--ink);
+}
+
+/* ---------- hero: brighter berry, champagne glow ---------- */
+.hero {
+  background:
+    radial-gradient(100% 80% at 80% 10%, rgba(255, 209, 102, .34), transparent 55%),
+    linear-gradient(145deg, #1b0b10 0%, #6b1a3a 42%, #b3124f 100%);
+}
+.hero__media::after {
+  background:
+    linear-gradient(100deg, rgba(27,11,16,.94) 0%, rgba(27,11,16,.78) 36%, rgba(179,18,79,.64) 64%, rgba(27,11,16,.68) 100%),
+    radial-gradient(120% 90% at 82% 12%, rgba(255,209,102,.34), transparent 62%);
+}
+.hero .eyebrow { color: var(--champagne); }
+.hero h1 em { color: var(--champagne); }
+.hero__rail { border-left-color: var(--line-cream); }
+.hero__rail .mono { color: var(--champagne); }
+.hero__strip {
+  border-top-color: var(--line-cream);
+  background: linear-gradient(90deg, #7a1a3a 0%, var(--berry-deep) 48%, var(--berry) 76%, var(--berry-bright) 100%);
+}
+.hero__strip ul { color: var(--paper); }
+.hero__strip li::before { background: var(--champagne); }
+.hero__actions .btn--solid {
+  border-color: var(--champagne);
+  background: var(--champagne);
+  color: var(--ink);
+}
+.hero__actions .btn--solid:hover {
+  border-color: var(--strawberry);
+  background: var(--strawberry);
+  color: var(--ink);
+}
+
+/* ---------- section rhythm: brighter blocks ---------- */
+.band {
+  background: var(--champagne);
+  border-block-color: rgba(27,11,16,.12);
+}
+.band__track { color: var(--berry-deep); opacity: .95; }
+.band__track span::after { color: var(--berry); }
+
+#fountains { background: var(--paper); }
+#dippers   { background: var(--pistachio-soft); }
+#how       { background: linear-gradient(135deg, #1b0b10 0%, #7a1a3a 55%, #b3124f 100%); }
+#ranch     { background: var(--rose); }
+#music     { background: var(--champagne-soft); }
+#faq       { background: var(--cream); }
+#book      { background: linear-gradient(135deg, #1b0b10 0%, #7a1a3a 55%, #b3124f 100%); }
+
+/* ---------- labels, rules and chapter numbers ---------- */
+.eyebrow { color: var(--berry-deep); }
+.section--dark .eyebrow { color: var(--champagne); }
+.chapter__no { -webkit-text-stroke-color: var(--berry); }
+.section--dark .chapter__no { -webkit-text-stroke-color: var(--champagne); }
+.chapter__head .aside { color: var(--berry-deep); }
+.section--dark .chapter__head .aside { color: var(--champagne); }
+.rule { background: var(--line); }
+.section--dark .rule { background: var(--line-cream); }
+
+/* ---------- buttons and links ---------- */
+.btn { border-color: var(--berry); color: var(--berry-deep); }
+.btn:hover { background: var(--berry); border-color: var(--berry); color: var(--paper); }
+.btn--solid { background: var(--berry); border-color: var(--berry); color: var(--paper); }
+.btn--solid:hover { background: var(--berry-deep); border-color: var(--berry-deep); color: var(--paper); }
+.btn--light { border-color: var(--line-cream); color: var(--cream); }
+.btn--light:hover { background: var(--cream); border-color: var(--cream); color: var(--ink); }
+.link-u { color: var(--berry-deep); border-color: var(--berry); }
+.link-u:hover { color: var(--berry); border-color: var(--berry-deep); }
+.section--dark .link-u { color: var(--champagne); border-color: var(--champagne); }
+
+/* ---------- menu, prices and gallery ---------- */
+.menu__row:hover { background: var(--berry-soft); }
+.menu__price { color: var(--berry-deep); }
+.menu__name small { color: var(--berry-deep); }
+.dippers li span:last-child { color: var(--berry-deep); }
+.dippers li::after { border-bottom-color: rgba(27,11,16,.28); }
+.feature__cap { background: var(--berry); color: var(--paper); }
+.feature__media::before { border-color: var(--champagne); }
+.plates .plate { background: var(--berry-soft); border: 2px solid var(--line-lt); }
+.plates figcaption { color: var(--berry-deep); }
+.plates figcaption span:last-child { color: rgba(27,11,16,.62); }
+.faq__item .q-n { color: var(--berry); }
+.crumbs { color: var(--berry-deep); }
+.crumbs a:hover { color: var(--berry); }
+
+/* ---------- steps on the berry band ---------- */
+.steps { border-top-color: var(--line-cream); }
+.steps > div { border-right-color: var(--line-cream); }
+.steps .n { color: var(--champagne); }
+.steps h3 { color: var(--cream); }
+.steps p { color: rgba(255,248,234,.80); }
+
+/* ---------- CTA and forms ---------- */
+.cta h2 em { color: var(--champagne); }
+.phone-big { border-color: var(--champagne); }
+.phone-big:hover { color: var(--champagne); }
+.field label { color: var(--champagne); }
+.field input:focus,
+.field textarea:focus,
+.field select:focus { border-bottom-color: var(--champagne); }
+
+/* ---------- footer: brighter berry gradient ---------- */
+.foot {
+  background:
+    radial-gradient(60% 80% at 90% 0%, rgba(255,209,102,.22), transparent 62%),
+    linear-gradient(135deg, #2a0a18 0%, #7a1a3a 55%, #b3124f 100%);
+  color: rgba(255,248,234,.86);
+}
+.foot h4 { color: var(--champagne); }
+.foot a:hover { color: var(--champagne); }
+.foot__brand b { color: var(--cream); }
+.foot__bar { color: rgba(255,248,234,.86); font-size: .68rem; }
+
+/* ---------- page-head accents ---------- */
+.pagehead h1 em { color: var(--berry); }
+.pagehead .lede { color: rgba(27,11,16,.78); }
+
+/* Dark sections use champagne as the primary action so the button does not
+   disappear into the berry field. */
+.section--dark .btn--solid {
+  background: var(--champagne);
+  border-color: var(--champagne);
+  color: var(--ink);
+}
+.section--dark .btn--solid:hover {
+  background: var(--strawberry);
+  border-color: var(--strawberry);
+  color: var(--ink);
+}
+
+/* Small print inside the berry CTA and dark contact panel needs a higher
+   contrast than the original 50% cream. */
+.section--dark .small,
+.form .small {
+  color: rgba(255,248,234,.84) !important;
+}
+
+/* ---------- small-screen polish ---------- */
+@media (max-width: 820px) {
+  .nav__cta { background: var(--berry); color: var(--paper); }
+}
