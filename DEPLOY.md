@@ -1,6 +1,6 @@
 # Deployment — Chocolate Fountain Heaven
 
-**Hosting: Steel City AI VPS (srv1349497 / 187.77.6.198). Not Replit, not Duda, not Netlify.**
+**Hosting: the Steel City AI VPS (srv1349497 / 187.77.6.198). That is the only hosting target for this site.**
 Two static nginx containers on that host serve the same repository content: one is the private review preview, one is the production target.
 
 | | Review preview | Production |
@@ -40,7 +40,7 @@ There is **no build step**. `site/` contains plain HTML, one stylesheet, one scr
 
 ## Adding a deploy target is not a decision for an agent
 
-The production host, domain and TLS are fixed. Do not introduce another platform, and do not re-point the domain outside `CUTOVER-RUNBOOK.md`.
+The production host, domain and TLS are fixed. Do not add a platform, and do not re-point the domain outside `CUTOVER-RUNBOOK.md`.
 
 ## Cutover
 
