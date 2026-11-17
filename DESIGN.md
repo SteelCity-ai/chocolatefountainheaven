@@ -78,6 +78,8 @@ Mike reviewed 2.0 and chose **brighter and bolder**. The 2.1 layer repaints the 
 ### Files and rollback
 - `site/css/style-2.1.css` (7,920 bytes) loads after `style.css` and `style-2.0.css` on all seven pages: `index.html`, `fountains.html`, `ranch.html`, `gallery.html`, `weddings.html`, `faq.html`, `contact.html`.
 - Rollback: remove the `style-2.1.css` link from the seven pages. 2.0 returns with no other change.
+
+> **Status 2026-11-17 (STE-644):** Design 2.0 and 2.1 are removed from the preview. Mike confirmed 2.1 was only a prototype and must not be served on `cf.steelcity-ai.com`. The seven pages no longer link `style-2.0.css` or `style-2.1.css`, and both files are deleted from the branch `codex/STE-644`. The layer survives in git history on `codex/STE-355` and in the `site.prev3-20261117T025413Z` preview backup. This section is kept as the historical record of the prototype.
 - `site/js/main.js` is unchanged. Skip link, focus styles, mobile drawer, gallery viewer, form behaviour and reduced-motion handling are inherited.
 
 ### Accessibility (WCAG 2.1 AA, computed)
@@ -101,7 +103,7 @@ Body and small text are at or above 4.5:1; large display text is at or above 3:1
 Strawberry `#ff5c7a` is decorative and hover-only. It is not used for small text on light fields and cream on strawberry is deliberately avoided.
 
 ### Verification record
-- Public review build `https://cf.steelcity-ai.com/design-2-1/`: all seven pages and `style-2.1.css` were byte-identical (SHA-256) to commit `541f79d05b0d442d807eb7deba6119e37191d58e` when checked on 2026-11-13.
+- Public review build `https://cf.steelcity-ai.com/design-2-1/`: all seven pages and `style-2.1.css` were byte-identical (SHA-256) to commit `541f79d05b0d442d807eb7deba6119e37191d58e` when checked on 2026-11-13. This build and the `/design-2/` build were removed from the preview on 2026-11-17 by STE-644.
 - Browser checks: desktop 1440×1000 and mobile 390×844 show no horizontal overflow, no broken images and no console errors on home, gallery, contact and weddings.
 - No motion was added; reduced-motion, focus visibility and keyboard behaviour are unchanged from 2.0.
 
