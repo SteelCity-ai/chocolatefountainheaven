@@ -48,55 +48,63 @@
     });
   }
 
-  /* home hero photo rotation — client asked for a slightly faster fade (STE-553) */
+  /* home hero photo rotation — contained panel with visible controls (STE-645) */
   var slidesBox = document.querySelector('.hero__slides');
   if (slidesBox) {
     var slides = Array.prototype.slice.call(slidesBox.querySelectorAll('.hero__slide'));
+    var countEl = document.querySelector('[data-slide-count]');
+    var toggleBtn = document.querySelector('[data-slide-toggle]');
+    var prevBtn = document.querySelector('[data-slide-prev]');
+    var nextBtn = document.querySelector('[data-slide-next]');
     var reduce = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-    if (slides.length > 1 && !reduce) {
-      var interval = parseInt(slidesBox.getAttribute('data-slide-interval'), 10) || 4000;
-      /* the two smallest client photos are hidden on wide screens (STE-628);
-         keep the visible frame filled when the viewport crosses that breakpoint */
-      var wideHero = window.matchMedia('(min-width: 1080px)');
-      var visibleSlides = function () {
-        return slides.filter(function (s) {
-          return !(wideHero.matches && s.classList.contains('hero__slide--small'));
-        });
-      };
-      var keepFrameFilled = function () {
-        var list = visibleSlides();
-        if (!list.length) return;
-        var active = slidesBox.querySelector('.hero__slide.is-active');
-        if (list.indexOf(active) === -1) {
-          slides.forEach(function (s) { s.classList.remove('is-active'); });
-          list[0].classList.add('is-active');
-        }
-      };
-      if (wideHero.addEventListener) wideHero.addEventListener('change', keepFrameFilled);
-      else if (wideHero.addListener) wideHero.addListener(keepFrameFilled);
-      var idx = 0;
-      var timer = null;
-      var advance = function () {
-        var list = visibleSlides();
-        if (!list.length) return;
-        var cur = list.indexOf(slidesBox.querySelector('.hero__slide.is-active'));
-        var next = list[(cur + 1) % list.length];
-        slides.forEach(function (s) { s.classList.remove('is-active'); });
-        next.classList.add('is-active');
-      };
-      var play = function () {
-        if (timer) return;
-        timer = window.setInterval(advance, interval);
-      };
-      var stop = function () {
-        window.clearInterval(timer);
-        timer = null;
-      };
+    var interval = parseInt(slidesBox.getAttribute('data-slide-interval'), 10) || 5000;
+    var idx = 0;
+    var timer = null;
+    var paused = reduce;
+
+    var pad = function (n) { return (n < 10 ? '0' : '') + n; };
+    var show = function (n) {
+      if (!slides.length) return;
+      idx = (n + slides.length) % slides.length;
+      slides.forEach(function (s, i) { s.classList.toggle('is-active', i === idx); });
+      if (countEl) countEl.textContent = pad(idx + 1) + ' / ' + pad(slides.length);
+    };
+    var stop = function () { window.clearInterval(timer); timer = null; };
+    var play = function () {
+      if (reduce || paused || timer || slides.length < 2) return;
+      timer = window.setInterval(function () { show(idx + 1); }, interval);
+    };
+    var setPaused = function (value) {
+      paused = value;
+      if (toggleBtn) {
+        toggleBtn.textContent = paused ? 'Play' : 'Pause';
+        toggleBtn.setAttribute('aria-pressed', paused ? 'true' : 'false');
+        toggleBtn.setAttribute('aria-label', paused ? 'Play slideshow' : 'Pause slideshow');
+      }
+      if (paused) stop(); else play();
+    };
+    var go = function (step) {
+      show(idx + step);
+      if (!paused) { stop(); play(); }
+    };
+
+    if (slides.length < 2) {
+      if (prevBtn) prevBtn.hidden = true;
+      if (nextBtn) nextBtn.hidden = true;
+      if (toggleBtn) toggleBtn.hidden = true;
+    } else {
+      if (prevBtn) prevBtn.addEventListener('click', function () { go(-1); });
+      if (nextBtn) nextBtn.addEventListener('click', function () { go(1); });
+      if (toggleBtn) {
+        if (reduce) toggleBtn.hidden = true;
+        else toggleBtn.addEventListener('click', function () { setPaused(!paused); });
+      }
       document.addEventListener('visibilitychange', function () {
         if (document.hidden) stop(); else play();
       });
       play();
     }
+    show(0);
   }
 
   /* reveal on scroll */
