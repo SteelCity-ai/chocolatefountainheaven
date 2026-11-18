@@ -48,55 +48,55 @@
     });
   }
 
-  /* home hero photo rotation — client asked for a slightly faster fade (STE-553) */
-  var slidesBox = document.querySelector('.hero__slides');
-  if (slidesBox) {
-    var slides = Array.prototype.slice.call(slidesBox.querySelectorAll('.hero__slide'));
-    var reduce = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-    if (slides.length > 1 && !reduce) {
-      var interval = parseInt(slidesBox.getAttribute('data-slide-interval'), 10) || 4000;
-      /* the two smallest client photos are hidden on wide screens (STE-628);
-         keep the visible frame filled when the viewport crosses that breakpoint */
-      var wideHero = window.matchMedia('(min-width: 1080px)');
-      var visibleSlides = function () {
-        return slides.filter(function (s) {
-          return !(wideHero.matches && s.classList.contains('hero__slide--small'));
-        });
-      };
-      var keepFrameFilled = function () {
-        var list = visibleSlides();
-        if (!list.length) return;
-        var active = slidesBox.querySelector('.hero__slide.is-active');
-        if (list.indexOf(active) === -1) {
-          slides.forEach(function (s) { s.classList.remove('is-active'); });
-          list[0].classList.add('is-active');
-        }
-      };
-      if (wideHero.addEventListener) wideHero.addEventListener('change', keepFrameFilled);
-      else if (wideHero.addListener) wideHero.addListener(keepFrameFilled);
-      var idx = 0;
-      var timer = null;
-      var advance = function () {
-        var list = visibleSlides();
-        if (!list.length) return;
-        var cur = list.indexOf(slidesBox.querySelector('.hero__slide.is-active'));
-        var next = list[(cur + 1) % list.length];
-        slides.forEach(function (s) { s.classList.remove('is-active'); });
-        next.classList.add('is-active');
-      };
-      var play = function () {
-        if (timer) return;
-        timer = window.setInterval(advance, interval);
-      };
-      var stop = function () {
-        window.clearInterval(timer);
-        timer = null;
-      };
-      document.addEventListener('visibilitychange', function () {
-        if (document.hidden) stop(); else play();
-      });
-      play();
-    }
+  /* photo rotation (home hero arches): crossfade + slow zoom.
+     Stays on the first photo when reduced motion is requested. */
+  var reduce = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  document.querySelectorAll('.cyc').forEach(function (box, k) {
+    var imgs = Array.prototype.slice.call(box.querySelectorAll('img'));
+    if (!imgs.length) return;
+    var i = 0, ms = parseInt(box.getAttribute('data-cycle'), 10) || 5000, timer = null;
+    imgs[0].classList.add('on');
+    box.classList.add('is-ready');
+    if (reduce || imgs.length < 2) return;
+    var step = function () {
+      imgs[i].classList.remove('on');
+      i = (i + 1) % imgs.length;
+      imgs[i].classList.add('on');
+    };
+    var play = function () { if (!timer) timer = window.setInterval(step, ms); };
+    var stop = function () { window.clearInterval(timer); timer = null; };
+    window.setTimeout(play, k * 1300);
+    document.addEventListener('visibilitychange', function () { if (document.hidden) stop(); else play(); });
+  });
+
+  /* count-up numbers in the hero proof row */
+  var counters = document.querySelectorAll('[data-n]');
+  var runCount = function (el) {
+    var n = parseFloat(el.getAttribute('data-n')), dec = n % 1 ? 1 : 0, t0 = null;
+    var f = function (t) {
+      if (t0 === null) t0 = t;
+      var p = Math.min((t - t0) / 1400, 1);
+      el.textContent = (n * (1 - Math.pow(1 - p, 3))).toFixed(dec);
+      if (p < 1) window.requestAnimationFrame(f); else el.textContent = String(n);
+    };
+    window.requestAnimationFrame(f);
+  };
+  if (!reduce && 'IntersectionObserver' in window) {
+    var cio = new IntersectionObserver(function (es) {
+      es.forEach(function (x) { if (x.isIntersecting) { runCount(x.target); cio.unobserve(x.target); } });
+    }, { threshold: .5 });
+    counters.forEach(function (el) { cio.observe(el); });
+  }
+
+  /* floating "Reserve a date" button after the first screen (not on Contact) */
+  if (!/contact\.html$/.test(location.pathname)) {
+    var sticky = document.createElement('div');
+    sticky.className = 'sticky-cta';
+    sticky.innerHTML = '<a class="btn btn--solid" href="contact.html">Reserve a date <i aria-hidden="true">&rarr;</i></a>';
+    document.body.appendChild(sticky);
+    var onS = function () { sticky.classList.toggle('show', window.scrollY > window.innerHeight * 0.7); };
+    window.addEventListener('scroll', onS, { passive: true });
+    onS();
   }
 
   /* reveal on scroll */

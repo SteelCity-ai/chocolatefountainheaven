@@ -2,23 +2,22 @@
 
 ## Direction
 
-An editorial event-service site: warm paper, espresso typography, restrained brass details, and the client's own reception photographs. The large serif headings, numbered chapters and fountain price rows give the business a distinct visual identity. Keep actual packages easy to scan and contact details easy to find.
-
-Hermes created and refined the seven-page design. Codex applied the **Frontend UI Engineering** skill for the final design, responsive and interaction review. This document records the implemented design; it does not claim the initial draft was generated with that skill.
+"Blush Modern" (chosen from three concepts, B2). A bold, warm event-service site: ivory paper, cocoa panels, raspberry, gold, mint and lilac color blocks, big Instrument Serif headlines, arch-shaped photo frames, and gentle motion so the site feels alive. Actual packages stay easy to scan and contact details easy to find. All copy, prices and client edits (STE tickets) are unchanged from the earlier editorial build; only the look changed.
 
 ## Visual system
 
-- Paper `#fbf7ef`, cream `#f4ecdd`, espresso `#150d09`, cocoa `#43261a`.
-- Brass `#86602e` for text and controls on paper; light brass `#cfa46a` for dark sections. The darker brass preserves the palette while improving normal-text contrast.
-- Bodoni Moda for display, Cormorant Garamond for editorial copy, Jost for navigation and body text. System serif/sans fallbacks remain available.
-- Hairline dividers, square controls, open layouts and real images; avoid decorative card grids and heavy shadows.
+- Ink/cocoa `#2b1710`, paper `#fbf6f1`, blush `#f3dcd3`, raspberry `#e0245e` (fills) and `#c40f4d` (text on light), gold `#f7b32b`, mint `#c9ebd2`, lilac `#e2d3f6`, sun `#ffe9b8`.
+- Instrument Serif for display, Inter for text. Rounded 30px cards, pill buttons, soft color glows behind the page.
+- Header: the original full-width bar (two-line wordmark, uppercase links, Reserve button), restyled; it gains a frosted background after scrolling. Not a floating pill.
+- Home hero: arch-framed photo rotation (the five client photos, STE-553) plus a second small rotating frame, floating info chips, count-up numbers. Fountains are a bento grid. Venue names run in a tilted raspberry band.
+- A floating "Reserve a date" button appears after the first screen on every page except Contact.
 - Shared styles live in `site/css/style.css`; shared behavior in `site/js/main.js`. The static `site/` files are authoritative and require no build step.
 
 ## Interaction and accessibility
 
 Use one H1 per page, labeled form fields, keyboard skip links and visible focus styles. The mobile menu reports its expanded state, moves focus inside, contains keyboard focus while open and restores focus on close. The gallery viewer supports keyboard opening, previous/next, Escape, contained focus and return to its originating photograph. Respect reduced motion.
 
-Inner pages use dark navigation on paper. Home uses light navigation over the photograph and switches to dark text after scrolling. Keep real business content and source images; client approval is required for final pricing and claims.
+All pages use the same dark-on-light header. Keep real business content and source images; client approval is required for final pricing and claims.
 
 ## Review boundary
 
