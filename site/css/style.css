@@ -106,20 +106,24 @@ p { margin: 0 0 1.15em; }
 .nav {
   position: fixed; inset: 0 0 auto 0; z-index: 900;
   display: flex; align-items: center; justify-content: space-between; gap: 2rem;
-  padding: 1.15rem var(--pad);
-  border-bottom: 1px solid transparent;
+  padding: .8rem var(--pad);
+  background: #eef6fd;                       /* very light blue header */
+  border-bottom: 1px solid rgba(110, 160, 210, .22);
   color: var(--ink);
   transition: background .4s var(--ease), border-color .4s var(--ease), padding .4s var(--ease), box-shadow .4s var(--ease);
 }
 .nav.is-stuck {
-  background: rgba(251, 246, 241, .94);
+  background: rgba(238, 246, 253, .95);
   backdrop-filter: blur(14px) saturate(130%); -webkit-backdrop-filter: blur(14px) saturate(130%);
-  border-bottom-color: var(--line); box-shadow: 0 8px 30px rgba(80, 40, 25, .06);
-  padding-block: .7rem;
+  box-shadow: 0 8px 30px rgba(60, 100, 150, .12);
+  padding-block: .45rem;
 }
-.wordmark { display: flex; flex-direction: column; line-height: 1; }
+.wordmark { display: flex; align-items: center; gap: .85rem; line-height: 1; }
+.wordmark__angels { height: 74px; width: auto; flex: none; transition: height .4s var(--ease); }
+.nav.is-stuck .wordmark__angels { height: 56px; }
+.wordmark__text { display: flex; flex-direction: column; line-height: 1; }
 .wordmark b { font-family: var(--display); font-weight: 400; font-size: 1.6rem; letter-spacing: -.005em; }
-.wordmark span {
+.wordmark__text span {
   font-size: .68rem; font-weight: 600; letter-spacing: .22em; text-transform: uppercase;
   margin-top: .45rem; color: var(--brass);
 }
@@ -437,7 +441,7 @@ p { margin: 0 0 1.15em; }
   .section--dark, .section--cream, .foot { margin-inline: 2vw; border-radius: 32px; }
 }
 @media (max-width: 520px) {
-  .wordmark b { font-size: 1.35rem; } .wordmark span { font-size: .58rem; letter-spacing: .16em; }
+  .wordmark__angels { height: 52px; } .wordmark { gap: .6rem; } .wordmark b { font-size: 1.2rem; white-space: nowrap; } .wordmark__text span { font-size: .5rem; letter-spacing: .1em; white-space: nowrap; }
   .masonry { grid-template-columns: 1fr; }
   .foot__grid, .steps, .form__row, .bento { grid-template-columns: 1fr; }
   .bento__card--big, .bento__card--berry { grid-column: auto; }
