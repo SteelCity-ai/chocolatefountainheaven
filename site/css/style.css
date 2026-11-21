@@ -326,6 +326,11 @@ p { margin: 0 0 1.15em; }
 .masonry figure:hover img { transform: scale(1.06); }
 .masonry figcaption { position: absolute; left: 14px; bottom: 14px; padding: .4rem 1rem; border-radius: 30px; background: rgba(255, 255, 255, .85); font-size: .74rem; font-weight: 600; }
 
+/* Gender reveal: two-up on desktop, stacked on phones so each photo stays large */
+.masonry.reveal-pair { grid-template-columns: repeat(2, minmax(0, 1fr)); max-width: 660px; gap: 22px; }
+.masonry.reveal-pair figure:nth-child(3n+2) { transform: none; }
+@media (max-width: 520px) { .masonry.reveal-pair { grid-template-columns: 1fr; max-width: 420px; gap: 18px; } }
+
 /* ---------- gallery page ---------- */
 .plates { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); grid-auto-flow: dense; gap: clamp(.9rem, 2vw, 1.5rem); }
 .plates figure { margin: 0; position: relative; }
