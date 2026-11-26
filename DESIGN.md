@@ -19,6 +19,12 @@ Use one H1 per page, labeled form fields, keyboard skip links and visible focus 
 
 All pages use the same dark-on-light header. Keep real business content and source images; client approval is required for final pricing and claims.
 
+## Photo reuse
+
+Never show the same photograph twice on one page — not in two content sections, and not in a section plus the gallery teaser. If a page needs another image, use a different photograph. An explicit client instruction is the only exception, and it must be quoted in the ticket.
+
+`python3 tools/check-duplicate-images.py` enforces this rule across `site/*.html` and must pass before a release candidate is merged. It catches a repeated filename and two different filenames with identical file bytes; a cropped or resized copy of the same photo still needs a reviewer's eye.
+
 ## Review boundary
 
 This is a client-review draft. The inquiry form opens an email draft in the visitor's mail app; the visitor must send it there. No inquiry backend is installed. Original production is not replaced by this work.
