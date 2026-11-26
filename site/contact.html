@@ -81,20 +81,21 @@
       <div data-reveal>
         <form class="form" data-mailto style="background:var(--ink);padding:clamp(1.6rem,3vw,2.6rem);color:var(--cream)">
           <span class="eyebrow" style="color:var(--brass-lt)">Event inquiry</span>
+          <p class="small" style="color:rgba(244,236,221,.65);margin:.5rem 0 1.2rem">Fields marked <span style="color:var(--gold)">*</span> are required.</p>
           <div class="form__row">
-            <div class="field"><label for="c-name">Your name</label><input id="c-name" name="name" type="text" required></div>
-            <div class="field"><label for="c-date">Event date</label><input id="c-date" name="date" type="date"></div>
+            <div class="field"><label for="c-name">Your name <span class="req" aria-hidden="true">*</span></label><input id="c-name" name="name" type="text" required></div>
+            <div class="field"><label for="c-date">Event date <span class="req" aria-hidden="true">*</span></label><input id="c-date" name="date" type="date" required></div>
           </div>
           <div class="form__row">
-            <div class="field"><label for="c-email">Email</label><input id="c-email" name="email" type="email" required></div>
-            <div class="field"><label for="c-phone">Phone</label><input id="c-phone" name="phone" type="tel"></div>
+            <div class="field"><label for="c-email">Email <span class="req" aria-hidden="true">*</span></label><input id="c-email" name="email" type="email" required></div>
+            <div class="field"><label for="c-phone">Phone <span class="req" aria-hidden="true">*</span></label><input id="c-phone" name="phone" type="tel" required></div>
           </div>
-          <div class="field"><label for="c-address">Your address</label><input id="c-address" name="address" type="text" placeholder="Street, city, state, ZIP"></div>
-          <div class="field"><label for="c-venue">Venue</label><input id="c-venue" name="venue" type="text" placeholder="Where is the event?"></div>
-          <div class="field"><label for="c-venue-address">Venue address</label><input id="c-venue-address" name="venue-address" type="text" placeholder="Street, city, state, ZIP"></div>
+          <div class="field"><label for="c-address">Your address <span class="req" aria-hidden="true">*</span></label><input id="c-address" name="address" type="text" placeholder="Street, city, state, ZIP" required></div>
+          <div class="field"><label for="c-venue">Venue <span class="req" aria-hidden="true">*</span></label><input id="c-venue" name="venue" type="text" placeholder="Where is the event?" required></div>
+          <div class="field"><label for="c-venue-address">Venue address <span class="req" aria-hidden="true">*</span></label><input id="c-venue-address" name="venue-address" type="text" placeholder="Street, city, state, ZIP" required></div>
           <div class="form__row">
             <div class="field"><label for="c-start">Start time</label><input id="c-start" name="start-time" type="time"></div>
-            <div class="field"><label for="c-guests">Guests</label><input id="c-guests" name="guests" type="text" placeholder="Approximate number"></div>
+            <div class="field"><label for="c-guests">Number of guests <span class="req" aria-hidden="true">*</span></label><input id="c-guests" name="guests" type="text" placeholder="Approximate number" required></div>
           </div>
           <div class="field"><label for="c-fountain">Interested in</label>
             <select id="c-fountain" name="fountain">

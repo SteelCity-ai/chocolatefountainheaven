@@ -11,16 +11,16 @@
   --ink-soft:   #3b2219;
   --cocoa:      #5a3a2e;
   --cream:      #fbf1e6;
-  --paper:      #f3f8fd;
-  --blush:      #f3dcd3;
+  --paper:      #e9f3fc;
+  --blush:      #eed2c6;
   --brass:      #c40f4d;   /* accent text + lines: raspberry (AA on paper) */
-  --berry:      #e0245e;   /* accent fills */
+  --berry:      #d81a55;   /* accent fills */
   --brass-lt:   #f7b32b;   /* accent on dark: gold */
   --gold:       #f7b32b;
   --mint:       #c9ebd2;
   --lilac:      #e2d3f6;
   --sun:        #ffe9b8;
-  --wine:       #b80c47;
+  --wine:       #a80a40;
   --line:       rgba(43, 23, 16, .14);
   --line-lt:    rgba(43, 23, 16, .08);
   --line-cream: rgba(251, 241, 230, .22);
@@ -70,8 +70,11 @@ h1 em, h2 em, h3 em { font-style: italic; color: var(--brass); }
 .hero h1 em, .section--dark h2 em, .cta h2 em, .pagehead h1 em {
   background: linear-gradient(95deg, #ff6b94, #ffb347);
   -webkit-background-clip: text; background-clip: text; color: transparent;
+  /* gradient text clip: give the glyph edges room so no letter is cut off (client 26 Nov) */
+  display: inline-block; padding: .04em .1em; margin: -.04em -.1em;
+  -webkit-box-decoration-break: clone; box-decoration-break: clone;
 }
-.hero h1 em { background: linear-gradient(95deg, #e0245e, #f7762b); -webkit-background-clip: text; background-clip: text; color: transparent; }
+.hero h1 em { background: linear-gradient(95deg, #d81a55, #f7762b); -webkit-background-clip: text; background-clip: text; color: transparent; }
 p { margin: 0 0 1.15em; }
 .lede { font-size: clamp(1.1rem, 1.3vw, 1.3rem); line-height: 1.55; color: rgba(43, 23, 16, .78); }
 .small { font-size: .86rem; }
@@ -110,13 +113,13 @@ p { margin: 0 0 1.15em; }
   position: fixed; inset: 0 0 auto 0; z-index: 900;
   display: flex; align-items: center; justify-content: space-between; gap: 2rem;
   padding: .8rem var(--pad);
-  background: #eef6fd;                       /* very light blue header */
+  background: #e3f0fb;                       /* very light blue header */
   border-bottom: 1px solid rgba(110, 160, 210, .22);
   color: var(--ink);
   transition: background .4s var(--ease), border-color .4s var(--ease), padding .4s var(--ease), box-shadow .4s var(--ease);
 }
 .nav.is-stuck {
-  background: rgba(238, 246, 253, .95);
+  background: rgba(227, 240, 251, .95);
   backdrop-filter: blur(14px) saturate(130%); -webkit-backdrop-filter: blur(14px) saturate(130%);
   box-shadow: 0 8px 30px rgba(60, 100, 150, .12);
   padding-block: .45rem;
@@ -385,6 +388,8 @@ p { margin: 0 0 1.15em; }
 .form { display: grid; gap: 1.3rem; }
 .form[style] { border-radius: var(--r); }
 .form__row { display: grid; grid-template-columns: 1fr 1fr; gap: 1.3rem; }
+.field label .req { color: var(--berry); font-weight: 700; }
+.cta .field label .req { color: var(--gold); }
 .field label { display: block; font-size: .72rem; font-weight: 600; letter-spacing: .14em; text-transform: uppercase; color: var(--gold); margin-bottom: .5rem; }
 .field input, .field textarea, .field select {
   width: 100%; background: rgba(255, 255, 255, .08); border: 1px solid var(--line-cream); border-radius: 14px;
