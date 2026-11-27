@@ -385,6 +385,8 @@ p { margin: 0 0 1.15em; }
 .form { display: grid; gap: 1.3rem; }
 .form[style] { border-radius: var(--r); }
 .form__row { display: grid; grid-template-columns: 1fr 1fr; gap: 1.3rem; }
+.field label .req { color: var(--berry); font-weight: 700; }
+.cta .field label .req { color: var(--gold); }
 .field label { display: block; font-size: .72rem; font-weight: 600; letter-spacing: .14em; text-transform: uppercase; color: var(--gold); margin-bottom: .5rem; }
 .field input, .field textarea, .field select {
   width: 100%; background: rgba(255, 255, 255, .08); border: 1px solid var(--line-cream); border-radius: 14px;
