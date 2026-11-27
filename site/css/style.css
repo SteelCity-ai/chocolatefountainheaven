@@ -70,8 +70,12 @@ h1 em, h2 em, h3 em { font-style: italic; color: var(--brass); }
 .hero h1 em, .section--dark h2 em, .cta h2 em, .pagehead h1 em {
   background: linear-gradient(95deg, #ff6b94, #ffb347);
   -webkit-background-clip: text; background-clip: text; color: transparent;
-  /* gradient text clip: give the glyph edges room so no letter is cut off (client 26 Nov) */
-  display: inline-block; padding: .04em .1em; margin: -.04em -.1em;
+  /* gradient text clip: the box must be taller than the glyphs, or background-clip:text
+     cuts descenders (the client saw the tail of the y in "beautifully" sliced off).
+     Line-height plus bottom padding give the descender room; negative margins keep the
+     surrounding rhythm unchanged. */
+  display: inline-block; line-height: 1.32;
+  padding: .05em .1em .22em; margin: -.05em -.1em -.22em;
   -webkit-box-decoration-break: clone; box-decoration-break: clone;
 }
 .hero h1 em { background: linear-gradient(95deg, #d81a55, #f7762b); -webkit-background-clip: text; background-clip: text; color: transparent; }
