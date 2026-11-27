@@ -29,4 +29,14 @@ done
 "$B" press Enter
 "$B" js '(()=>{if(!document.querySelector(".lb").classList.contains("is-open"))throw Error("Keyboard gallery opening");return "Gallery keyboard opening passed";})()'
 "$B" press Escape
+# Gallery must actually become visible. Regression guard for STE-840: a
+# full-height gallery previously stayed at opacity 0 forever because its
+# IntersectionObserver ratio could never cross 8%.
+for size in 1024x900 390x844; do
+  "$B" viewport "$size"
+  "$B" goto "$BASE/gallery.html"
+  sleep 2
+  "$B" js '(()=>{var g=document.querySelector(".plates[data-reveal]");if(!g)throw Error("Gallery grid missing");var op=getComputedStyle(g).opacity;if(op!=="1")throw Error("Gallery grid hidden at opacity "+op);var imgs=Array.prototype.slice.call(document.querySelectorAll(".plates img"));var shown=imgs.filter(function(i){return i.complete&&i.naturalWidth>0;});if(!shown.length)throw Error("No gallery photograph loaded");if(document.querySelectorAll(".plates figure").length<60)throw Error("Gallery photo count unexpectedly low");return "Gallery visible at "+innerWidth+"x"+innerHeight+" with "+shown.length+" photographs decoded";})()'
+done
+"$B" viewport 1440x900
 "$B" console --errors

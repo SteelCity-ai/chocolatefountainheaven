@@ -99,20 +99,32 @@
     onS();
   }
 
-  /* reveal on scroll */
+  /* reveal on scroll.
+     Threshold 0 matters: a section taller than the viewport can never reach a
+     positive ratio high enough to cross a percentage threshold, which left the
+     full gallery permanently transparent. Reveal at any intersection instead. */
   var revealEls = document.querySelectorAll('[data-reveal]');
+  var reveal = function (el) { el.classList.add('is-in'); };
   if ('IntersectionObserver' in window) {
     var io = new IntersectionObserver(function (entries) {
       entries.forEach(function (en) {
         if (en.isIntersecting) {
-          en.target.classList.add('is-in');
+          reveal(en.target);
           io.unobserve(en.target);
         }
       });
-    }, { rootMargin: '0px 0px -12% 0px', threshold: 0.08 });
+    }, { rootMargin: '0px 0px -12% 0px', threshold: 0 });
     revealEls.forEach(function (el) { io.observe(el); });
+    /* Safety net: anything already on screen when the script runs is shown
+       even if the observer callback is delayed or missed. */
+    window.addEventListener('load', function () {
+      revealEls.forEach(function (el) {
+        var r = el.getBoundingClientRect();
+        if (r.top < window.innerHeight && r.bottom > 0) reveal(el);
+      });
+    });
   } else {
-    revealEls.forEach(function (el) { el.classList.add('is-in'); });
+    revealEls.forEach(reveal);
   }
 
   /* lightbox */
